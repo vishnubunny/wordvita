@@ -31,8 +31,8 @@ days = datetime.today() - d1
 @app.route('/index', methods=['GET'])
 def index():
     try:
-        today_clues = clues[days]
-        today_answers = answers[days]
+        today_clues = clues[days.days]
+        today_answers = answers[days.days]
         return today_clues, today_answers
     except:
         return "err"
