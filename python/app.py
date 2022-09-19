@@ -1,6 +1,6 @@
 from cgi import test
 from flask import Flask, render_template, request, jsonify
-import pickle
+
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from gensim.models import KeyedVectors
@@ -28,12 +28,12 @@ d1 = datetime.strptime('2022/9/19', "%Y/%m/%d")
 # difference between dates in timedelta
 days = datetime.today() - d1
 
-@app.route('/index', methods=['GET'])
-def index():
+@app.route('/index1', methods=['GET'])
+def index1():
     try:
         today_clues = clues[days.days]
         today_answers = answers[days.days]
-        return today_clues, today_answers
+        return [today_clues, today_answers]
     except:
         return "err"
 

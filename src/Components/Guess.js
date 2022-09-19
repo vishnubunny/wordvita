@@ -4,9 +4,9 @@ import ProgressBar from "@ramonak/react-progress-bar";
 import { DataContext } from "../ContextAPI/dataContext";
 import axios from "axios";
 
-
 const Guess = () => {
   const { state, dispatch } = useContext(DataContext);
+
   useEffect(() => {
     if (state.guesses_left === 0) {
       dispatch({ type: "LOST" });
@@ -14,61 +14,79 @@ const Guess = () => {
   }, [state.guesses_left]);
   return (
     <div className={`guess ${state?.Lightmode === true ? "" : "dark"}`}>
-      {[...Array(6)].map((x, i) => {
+      {[...Array(5)].map((x, i) => {
         return (
           <GuessItem
             id={i}
             key={i}
             active={state.active === i}
             // progress={i * 10}
-
           />
         );
-
       })}
     </div>
   );
 };
 
 const GuessItem = (props) => {
-  console.log(props);
   const { state, dispatch } = useContext(DataContext);
   const [valid, setValid] = useState(false);
-  const [response, setResponse] = useState({});
+  const [response, setResponse] = useState();
   let guessInputRef = useRef("");
-  console.log(state.valid[props.id]);
-  
-  
-  const validateWord = async () => {
 
+  const validateWord = async () => {
     const config = {
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
+    };
+    let sending_value;
+    if (state.ans[0].indexOf(guessInputRef.current.value) >= 0) {
+      sending_value = state.ans[0][0];
+    } else {
+      sending_value = guessInputRef.current.value;
     }
     try {
       const res = await axios({
-        method: 'post',
-        url: 'http://localhost:5000/index',
+        method: "post",
+        url: "http://localhost:5000/index",
         data: {
-          user_input: guessInputRef.current.value,
-          ans:"dam"
-        }
+          user_input: sending_value.toLowerCase(),
+          ans: state.ans[0][0],
+        },
       });
-      
 
-      console.log(res.data)
-      setResponse(res)
+      console.log(res.data);
+      setResponse(res);
 
+      //CORRECT
+      if (state.ans[0].indexOf(guessInputRef.current.value) >= 0) {
+        dispatch({
+          type: "ANSWER_CORRECT",
+          valid_index: props.id,
+          input_value: guessInputRef.current.value,
+          percent: res.data,
+        });
+      } else if (guessInputRef.current.value === "" || res.data === "err") {
+        dispatch({
+          type: "INVALID_WORD",
+          input_value: guessInputRef.current.value,
+        });
+        alert("Please enter a valid word");
+        guessInputRef.current.value = "";
+      } else {
+        //go to next
+        dispatch({
+          type: "ANSWER_INCORRECT",
+          input_value: guessInputRef.current.value,
+          valid_index: `guess ${props.id} : true`,
+          percent: res.data,
+        });
+      }
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
-
-
-    
-  }
-  
-
+  };
 
   useEffect(() => {
     try {
@@ -81,39 +99,49 @@ const GuessItem = (props) => {
   }, [state.valid]);
 
   const buttonClickHandler = () => {
-    // // Check for word validity with API
-    // // Valid word
-    // console.log(data)
-    validateWord()
-    if (guessInputRef.current.value === state.ans) {
+    validateWord();
+
+    //CORRECT
+    if (state.ans[0].indexOf(guessInputRef.current.value) >= 0) {
       dispatch({ type: "ANSWER_CORRECT", valid_index: props.id });
-    } else if (guessInputRef.current.value !== "invalid") {
-      dispatch({
-        type: "ANSWER_INCORRECT",
-        input_value: guessInputRef.current.value,
-        valid_index: `guess ${props.id} : true`,
-      });
+    } else {
+      if (guessInputRef.current.value === "") {
+        alert("please enter any word");
+      } else {
+        dispatch({ type: "GOTO_NEXT" });
+      }
     }
 
+    //  else if (
+    //   state.ans[0].indexOf(guessInputRef.current.value) < 0 &&
+    //   guessInputRef.current.value !== ""
+    // ) {
+    //   alert("Please enter a valid word");
+    //   guessInputRef.current.value = "";
+    // dispatch({
+    //   type: "ANSWER_INCORRECT",
+    //   input_value: guessInputRef.current.value,
+    //   valid_index: `guess ${props.id} : true`,
+    // });
+    // }
+
     // //InValid word
-    if (guessInputRef.current.value === "invalid")
-      dispatch({
-        type: "INVALID_WORD",
-        input_value: guessInputRef.current.value,
-      });
   };
 
   return (
-    
-
-    
     <div className="guessitem">
       {!valid ? (
         <div className="guessinput">
           {props.active ? (
             <>
-              <input type={"text"} ref={guessInputRef} />
-              <button className="submit-guess" onClick={buttonClickHandler}>
+              <input
+                type={"text"}
+                ref={guessInputRef}
+                defaultValue={
+                  state.guesses[props.id] || guessInputRef?.current.value
+                }
+              />
+              <button className="submit-guess" onClick={validateWord}>
                 <svg
                   version="1.1"
                   id="Capa_1"
@@ -138,7 +166,7 @@ l12.958-12.97c0.885-0.882,1.362-2.059,1.362-3.309C44.952,22.717,44.952,22.231,44
           ) : (
             <>
               <input type={"text"} ref={guessInputRef} disabled />
-              <button className="submit-guess" onClick={buttonClickHandler}>
+              <button className="submit-guess" onClick={validateWord} disabled>
                 <svg
                   version="1.1"
                   id="Capa_1"
@@ -170,7 +198,7 @@ l12.958-12.97c0.885-0.882,1.362-2.059,1.362-3.309C44.952,22.717,44.952,22.231,44
             value={state.guesses[props.id] || guessInputRef?.current.value}
             disabled
           />
-          <button className="submit-guess" onClick={buttonClickHandler}>
+          <button className="submit-guess" onClick={validateWord} disabled>
             <svg
               version="1.1"
               id="Capa_1"
@@ -199,14 +227,18 @@ l12.958-12.97c0.885-0.882,1.362-2.059,1.362-3.309C44.952,22.717,44.952,22.231,44
         <div className="progress-div">
           <ProgressBar
             className="progressbar"
-            completed={response?.data===undefined?0:response?.data}
+            completed={
+              state?.guess_percent[props.id]
+                ? state?.guess_percent[props.id]
+                : 0
+            }
             maxCompleted={100}
             labelSize={"8px"}
             barContainerClassName="container"
             // customLabel={`${props.progress}%`}
             labelAlignment={"center"}
             bgColor={"#02ab02"}
-            
+
             // completedClassName="barCompleted"
           />
           {/* {props.active && <p>Active</p>} */}

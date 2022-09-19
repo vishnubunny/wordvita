@@ -1,27 +1,43 @@
 export const INITIAL_STATE = {
   guesses: [],
-  clues: [1, 2 , 3 , 4],
-  ans: "test",
-  guesses_left: 3,
+  guess_percent: [],
+  clues: [],
+  ans: [],
+  guesses_left: 6,
   error: false,
   gameWon: false,
-  lost: false,
+  // lost: false,
   Lightmode: true,
   valid: [],
   active: 0,
 };
 
 export const dataReducer = (state, action) => {
-  console.log(action.valid_index);
+  // console.log(action.valid_index);
   switch (action.type) {
     //Play again will also trigger this
     case "SET_INITIAL_DATA": {
       console.log("Set initial data", state);
-      return {
-        ...state,
-        clues: [], // data form server
-        ans: "",
-      };
+
+      if (action.first_time) {
+        return {
+          ...state,
+          clues: action.payload[0],
+          ans: action.payload[1],
+        };
+      } else
+        return {
+          ...state,
+          clues: action.old.clues,
+          ans: action.old.ans,
+          guesses: action.old.guesses,
+          guesses_left: action.old.guesses_left,
+          gameWon: action.old.gameWon,
+          valid: action.old.valid,
+          active: action.old.active,
+          Lightmode: action.old.Lightmode,
+          guess_percent: action.old.guess_percent,
+        };
     }
     case "INVALID_WORD": {
       console.log("invalid word", state);
@@ -35,9 +51,11 @@ export const dataReducer = (state, action) => {
       return {
         ...state,
         guesses: [...state.guesses, action.input_value],
+        guess_percent: [...state.guess_percent, 100],
+        guesses_left: state.guesses_left - 1,
         gameWon: true,
         valid: [...state.valid, true],
-        active: state.active + 1,
+        active: 5,
       };
     }
     case "ANSWER_INCORRECT": {
@@ -46,6 +64,7 @@ export const dataReducer = (state, action) => {
       return {
         ...state,
         guesses: [...state.guesses, action.input_value],
+        guess_percent: [...state.guess_percent, action.percent],
         guesses_left: state.guesses_left - 1,
         valid: [...state.valid, true],
         active: state.active + 1,
@@ -56,6 +75,7 @@ export const dataReducer = (state, action) => {
       return {
         ...state,
         lost: true,
+        // gameWon: false,
       };
     }
 

@@ -1,0 +1,1 @@
+console.log(["abc", "abcd"].indexOf("abcd"))
