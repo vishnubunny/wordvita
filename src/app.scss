@@ -1,0 +1,30 @@
+body {
+  margin: 0px;
+  padding: 0px;
+  
+  overflow: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+
+}
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  
+  background-size: cover;
+  background-repeat: no-repeat;
+  // background-position: bottom 0px;
+  background-position-y: bottom;
+  // background-color: white;
+  background-image: url("./images/IMG_0185.JPG");
+  
+  transition: all 500ms;
+
+  &.dark {
+    background-color: rgb(87, 86, 86);
+    transition: background 500ms;
+  }
+}
