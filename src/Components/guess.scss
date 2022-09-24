@@ -1,12 +1,10 @@
-
-
 .guess {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  // margin-top: 20px;
   gap: 20px;
 }
 
@@ -19,9 +17,13 @@
   .guessinput {
     display: flex;
     align-items: center;
-    background-color: rgb(232, 232, 232);
+    background-color: rgb(204, 214, 255);
     border-radius: 5px;
     padding-right: 5px;
+
+    &.disabled {
+      background-color: rgb(255, 238, 250);
+    }
 
     input {
       background-color: transparent;
@@ -39,7 +41,14 @@
       border: none;
       outline: none;
       border-radius: 5px;
-      background-color: rgb(181, 180, 180);
+      // background-color: rgb(162, 162, 162);
+      background-color: rgb(145, 167, 255);
+
+      &.disabled {
+        // background-color: rgb(214, 214, 214);
+        background-color: rgb(255, 189, 235);
+
+      }
     }
 
     p {

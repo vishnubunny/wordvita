@@ -23,17 +23,26 @@ answers=[["lollipop","lollipops"],["pizza","pizzas"],["skin"]]
 
 
 # date of deployment
-d1 = datetime.strptime('2022/9/19', "%Y/%m/%d")
+# d1 = datetime.strptime('2022/9/22', "%Y/%m/%d")
+# d2 = datetime.strptime('2022/9/20', "%Y/%m/%d")
 
 # difference between dates in timedelta
-days = datetime.today() - d1
+# days = datetime.now() - d1 
+# print(datetime.datetime.now()) 
+# print(datetime.today)
+# days = d2 - d1  
+print(datetime.now())
+# print(days.days)
 
 @app.route('/index1', methods=['GET'])
 def index1():
+    d1 = datetime.strptime('2022/9/22', "%Y/%m/%d")
+    days = datetime.now() - d1 
+    print(datetime.now(), days)
     try:
         today_clues = clues[days.days]
         today_answers = answers[days.days]
-        return [today_clues, today_answers]
+        return {"clues":today_clues, "answers":today_answers}
     except:
         return "err"
 

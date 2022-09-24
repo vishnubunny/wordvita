@@ -3,15 +3,31 @@ import "./guess.scss";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { DataContext } from "../ContextAPI/dataContext";
 import axios from "axios";
+import arrow from "../images/east_black_24dp.svg";
+import SnackBar from "../UI/SnackBar";
 
 const Guess = () => {
   const { state, dispatch } = useContext(DataContext);
+  const snackBarRef = useRef(null);
+
+  const defineSnackBar = ({ message, type }) => {
+    snackBarRef.current.snackBar({
+      message: message,
+      type: type,
+    });
+  };
 
   useEffect(() => {
     if (state.guesses_left === 0) {
       dispatch({ type: "LOST" });
+
+      defineSnackBar({
+        message: `You Lost! The Answer is ${state.ans[0]}`,
+        type: "fail",
+      });
     }
   }, [state.guesses_left]);
+
   return (
     <div className={`guess ${state?.Lightmode === true ? "" : "dark"}`}>
       {[...Array(5)].map((x, i) => {
@@ -20,10 +36,11 @@ const Guess = () => {
             id={i}
             key={i}
             active={state.active === i}
-            // progress={i * 10}
+            triggerSnackBar={defineSnackBar}
           />
         );
       })}
+      {<SnackBar ref={snackBarRef} />}
     </div>
   );
 };
@@ -31,7 +48,7 @@ const Guess = () => {
 const GuessItem = (props) => {
   const { state, dispatch } = useContext(DataContext);
   const [valid, setValid] = useState(false);
-  const [response, setResponse] = useState();
+  // const [response, setResponse] = useState();
   let guessInputRef = useRef("");
 
   const validateWord = async () => {
@@ -40,39 +57,30 @@ const GuessItem = (props) => {
         "Content-Type": "application/json",
       },
     };
-    let sending_value;
-    if (state.ans[0].indexOf(guessInputRef.current.value) >= 0) {
-      sending_value = state.ans[0][0];
-    } else {
-      sending_value = guessInputRef.current.value;
-    }
+
     try {
       const res = await axios({
         method: "post",
         url: "http://localhost:5000/index",
         data: {
-          user_input: sending_value.toLowerCase(),
-          ans: state.ans[0][0],
+          user_input: guessInputRef.current.value.toLowerCase().trim(),
+          ans: state.ans[0],
         },
+        config,
       });
 
       console.log(res.data);
-      setResponse(res);
+      // setResponse(res);
 
-      //CORRECT
-      if (state.ans[0].indexOf(guessInputRef.current.value) >= 0) {
-        dispatch({
-          type: "ANSWER_CORRECT",
-          valid_index: props.id,
-          input_value: guessInputRef.current.value,
-          percent: res.data,
-        });
-      } else if (guessInputRef.current.value === "" || res.data === "err") {
+      if (res.data === "err") {
         dispatch({
           type: "INVALID_WORD",
           input_value: guessInputRef.current.value,
         });
-        alert("Please enter a valid word");
+        props.triggerSnackBar({
+          message: "Invalid Word",
+          type: "fail",
+        });
         guessInputRef.current.value = "";
       } else {
         //go to next
@@ -82,6 +90,10 @@ const GuessItem = (props) => {
           valid_index: `guess ${props.id} : true`,
           percent: res.data,
         });
+        // props.triggerSnackBar({
+        //   message: "Show test",
+        //   type: "success",
+        // });
       }
     } catch (error) {
       // console.log(error)
@@ -98,128 +110,69 @@ const GuessItem = (props) => {
     }
   }, [state.valid]);
 
-  const buttonClickHandler = () => {
-    validateWord();
-
-    //CORRECT
-    if (state.ans[0].indexOf(guessInputRef.current.value) >= 0) {
-      dispatch({ type: "ANSWER_CORRECT", valid_index: props.id });
-    } else {
-      if (guessInputRef.current.value === "") {
-        alert("please enter any word");
-      } else {
-        dispatch({ type: "GOTO_NEXT" });
-      }
+  const buttonClickHandler = (e) => {
+    e.preventDefault();
+    //Nothing typed
+    if (guessInputRef.current.value === "") {
+      dispatch({ type: "INVALID_WORD" });
+      props.triggerSnackBar({
+        message: "Please enter something",
+        type: "fail",
+      });
+      // alert("please enter any word");
+      return;
     }
 
-    //  else if (
-    //   state.ans[0].indexOf(guessInputRef.current.value) < 0 &&
-    //   guessInputRef.current.value !== ""
-    // ) {
-    //   alert("Please enter a valid word");
-    //   guessInputRef.current.value = "";
-    // dispatch({
-    //   type: "ANSWER_INCORRECT",
-    //   input_value: guessInputRef.current.value,
-    //   valid_index: `guess ${props.id} : true`,
-    // });
-    // }
+    //Answer Correct
+    if (state.ans.includes(guessInputRef.current.value)) {
+      console.log("Answer array includes this input");
+      dispatch({
+        type: "ANSWER_CORRECT",
+        valid_index: props.id,
+        input_value: guessInputRef.current.value,
+        percent: 100,
+      });
+      props.triggerSnackBar({
+        message: "Woohoo!! you Won",
+        type: "success",
+      });
+      return;
+    }
 
-    // //InValid word
+    //Incorrect Incorrect
+    // Check for validity
+    validateWord();
   };
 
   return (
     <div className="guessitem">
-      {!valid ? (
-        <div className="guessinput">
-          {props.active ? (
-            <>
-              <input
-                type={"text"}
-                ref={guessInputRef}
-                defaultValue={
-                  state.guesses[props.id] || guessInputRef?.current.value
-                }
-              />
-              <button className="submit-guess" onClick={validateWord}>
-                <svg
-                  version="1.1"
-                  id="Capa_1"
-                  x="0px"
-                  y="0px"
-                  width="44.952px"
-                  height="44.952px"
-                  viewBox="-2 -4 50 50"
-                >
-                  <g>
-                    <path
-                      d="M44.952,22.108c0-1.25-0.478-2.424-1.362-3.308L30.627,5.831c-0.977-0.977-2.561-0.977-3.536,0
-c-0.978,0.977-0.976,2.568,0,3.546l10.574,10.57H2.484C1.102,19.948,0,21.081,0,22.464c0,0.003,0,0.025,0,0.028
-c0,1.382,1.102,2.523,2.484,2.523h35.182L27.094,35.579c-0.978,0.978-0.978,2.564,0,3.541c0.977,0.979,2.561,0.978,3.538-0.001
-l12.958-12.97c0.885-0.882,1.362-2.059,1.362-3.309C44.952,22.717,44.952,22.231,44.952,22.108z"
-                      fill="#ffffff"
-                    />
-                  </g>
-                </svg>
-              </button>
-            </>
-          ) : (
-            <>
-              <input type={"text"} ref={guessInputRef} disabled />
-              <button className="submit-guess" onClick={validateWord} disabled>
-                <svg
-                  version="1.1"
-                  id="Capa_1"
-                  x="0px"
-                  y="0px"
-                  width="44.952px"
-                  height="44.952px"
-                  viewBox="-2 -4 50 50"
-                >
-                  <g>
-                    <path
-                      d="M44.952,22.108c0-1.25-0.478-2.424-1.362-3.308L30.627,5.831c-0.977-0.977-2.561-0.977-3.536,0
-c-0.978,0.977-0.976,2.568,0,3.546l10.574,10.57H2.484C1.102,19.948,0,21.081,0,22.464c0,0.003,0,0.025,0,0.028
-c0,1.382,1.102,2.523,2.484,2.523h35.182L27.094,35.579c-0.978,0.978-0.978,2.564,0,3.541c0.977,0.979,2.561,0.978,3.538-0.001
-l12.958-12.97c0.885-0.882,1.362-2.059,1.362-3.309C44.952,22.717,44.952,22.231,44.952,22.108z"
-                      fill="#ffffff"
-                    />
-                  </g>
-                </svg>
-              </button>
-            </>
-          )}
-        </div>
-      ) : (
-        <div className="guessinput">
+      {props.active ? (
+        <form className="guessinput" onSubmit={buttonClickHandler}>
           <input
             type={"text"}
             ref={guessInputRef}
-            value={state.guesses[props.id] || guessInputRef?.current.value}
+            defaultValue={
+              state.guesses[props.id] || guessInputRef?.current.value
+            }
+            autoFocus
+          />
+          <button className="submit-guess" type="submit">
+            <img src={arrow} />
+          </button>
+        </form>
+      ) : (
+        <div className="guessinput disabled">
+          <input
+            type={"text"}
+            ref={guessInputRef}
+            defaultValue={
+              state.guesses[props.id] || guessInputRef?.current.value
+            }
             disabled
           />
-          <button className="submit-guess" onClick={validateWord} disabled>
-            <svg
-              version="1.1"
-              id="Capa_1"
-              x="0px"
-              y="0px"
-              width="44.952px"
-              height="44.952px"
-              viewBox="-2 -4 50 50"
-            >
-              <g>
-                <path
-                  d="M44.952,22.108c0-1.25-0.478-2.424-1.362-3.308L30.627,5.831c-0.977-0.977-2.561-0.977-3.536,0
-c-0.978,0.977-0.976,2.568,0,3.546l10.574,10.57H2.484C1.102,19.948,0,21.081,0,22.464c0,0.003,0,0.025,0,0.028
-c0,1.382,1.102,2.523,2.484,2.523h35.182L27.094,35.579c-0.978,0.978-0.978,2.564,0,3.541c0.977,0.979,2.561,0.978,3.538-0.001
-l12.958-12.97c0.885-0.882,1.362-2.059,1.362-3.309C44.952,22.717,44.952,22.231,44.952,22.108z"
-                  fill="#ffffff"
-                />
-              </g>
-            </svg>
+          <button className="submit-guess disabled">
+            <img src={arrow} />
           </button>
-          {/* <p>{state.guesses[props.id] || guessInputRef?.current.value}</p> */}
         </div>
       )}
 

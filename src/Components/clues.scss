@@ -1,18 +1,66 @@
 .clues {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
-  height: 50px;
-  gap: 50px;
+  flex-direction: column;
+
+  .items {
+    width: max-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    background: gray;
+    padding: 10px;
+    border-radius: 10px;
+  }
 }
 
 .clueItem {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: bisque;
-  height: 30px;
+  background-color: rgb(255, 255, 255);
+  height: 20px;
   width: 100px;
   border-radius: 5px;
+
+  &.dull {
+    opacity: 50%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  //For Laptops
+  .clues {
+    gap: 1px;
+  }
+  .clueItem {
+    height: 25px;
+  }
+}
+@media screen and (max-width: 768px) {
+  //For Phones
+
+  .clues {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .items {
+      width: max-content;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      background: gray;
+      padding: 10px;
+      border-radius: 10px;
+    }
+  }
+
+  .clueItem {
+    width: 100px;
+  }
 }

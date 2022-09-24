@@ -9,3 +9,13 @@ $header-bg-d: rgb(87, 6, 87);
 $body-bg-d: black;
 $primary-text-color-d: #ffffff;
 $secondary-text-color-d: grey;
+
+@font-face {
+  font-family: "dimitri"; /*a name to be used later*/
+  src: url("../fonts/DIMITRI_.TTF"); /*URL to font*/
+}
+
+@font-face {
+  font-family: "dimitri-lite"; /*a name to be used later*/
+  src: url("../fonts/DIMIS___.TTF"); /*URL to font*/
+}

@@ -1,0 +1,43 @@
+@import "./global.scss";
+
+.footer {
+  font-family: "dimitri-lite";
+  width: 100%;
+  height: 10%;
+  position: fixed;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+// https://www.w3schools.com/css/css_link.asp
+//  For styling
+
+.footer-item {
+  opacity: 70%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  cursor: pointer;
+
+  img {
+    opacity: inherit;
+    height: 20px;
+    width: 20px;
+  }
+
+  a {
+    font-size: 13px;
+    opacity: inherit;
+    color: black;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  &:hover {
+    opacity: 100%;
+  }
+}
