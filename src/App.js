@@ -45,7 +45,7 @@ function App() {
     try {
       const res = await axios({
         method: "get",
-        url: "http://localhost:5000/index1",
+        url: "http://127.0.0.1:5000/index1",
       });
 
       if (res.data !== "err") setRes(res);

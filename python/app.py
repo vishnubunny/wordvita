@@ -1,5 +1,5 @@
 from cgi import test
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_from_directory
 
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
@@ -7,36 +7,24 @@ from gensim.models import KeyedVectors
 from flask_cors import CORS
 from datetime import datetime
 
-word = KeyedVectors.load_word2vec_format('./python/GoogleNews-vectors-negative300.bin', binary=True, limit = 100000)
+word = KeyedVectors.load_word2vec_format('./wordvita/python/GoogleNews-vectors-negative300.bin', binary=True, limit = 100000)
 # arrays
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='', static_folder='../build')
 
-CORS(app)
+#CORS(app)
 clues=[["round","kids","stick","eat","lick"],["circle","food","triangle","toppings","bake"],["hair","tone","touch","sweat","organ"]]
 answers=[["lollipop","lollipops"],["pizza","pizzas"],["skin"]]
-# @app.route('/')
-# def main():
-#     return render_template('index.html')
+@app.route("/", defaults={'path':''})
+def serve(path):
+    print(app.static_folder)
+    return send_from_directory(app.static_folder,'index.html')
 
-
-
-# date of deployment
-# d1 = datetime.strptime('2022/9/22', "%Y/%m/%d")
-# d2 = datetime.strptime('2022/9/20', "%Y/%m/%d")
-
-# difference between dates in timedelta
-# days = datetime.now() - d1 
-# print(datetime.datetime.now()) 
-# print(datetime.today)
-# days = d2 - d1  
-print(datetime.now())
-# print(days.days)
 
 @app.route('/index1', methods=['GET'])
 def index1():
-    d1 = datetime.strptime('2022/9/22', "%Y/%m/%d")
+    d1 = datetime.strptime('2022/9/29', "%Y/%m/%d")
     days = datetime.now() - d1 
     print(datetime.now(), days)
     try:

@@ -61,7 +61,7 @@ const GuessItem = (props) => {
     try {
       const res = await axios({
         method: "post",
-        url: "http://localhost:5000/index",
+        url: "http://127.0.0.1:5000/index",
         data: {
           user_input: guessInputRef.current.value.toLowerCase().trim(),
           ans: state.ans[0],
