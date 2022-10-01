@@ -2,6 +2,8 @@ import React, { useContext } from "react";
 import { DataContext } from "../ContextAPI/dataContext";
 import "./navigationBar.scss";
 import info from "../images/info.svg";
+import stats from "../images/pie-chart.png";
+
 
 const NavigationBar = (props) => {
   const { state, dispatch } = useContext(DataContext);
@@ -20,7 +22,7 @@ const NavigationBar = (props) => {
 
   return (
     <div className={`nav ${state?.Lightmode === true ? "" : "dark"}`}>
-      <h3 className="title">Wordvita</h3>
+      <h3 className="title">WordVita</h3>
 
       <div className="right">
         <input
@@ -31,7 +33,8 @@ const NavigationBar = (props) => {
         />
         <img className="info" src={info} onClick={props.openthis} />
 
-        <p onClick={props.openStats}>Stats</p>
+        <img className="stats" src={stats} onClick={props.openStats} />
+        {/* <p onClick={props.openStats}>Stats</p> */}
 
         <p onClick={resetBtnHandler}>Reset</p>
         <p onClick={playagainBtnHandler}>Play again</p>

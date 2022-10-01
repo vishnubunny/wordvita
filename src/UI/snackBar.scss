@@ -11,15 +11,24 @@
   left: 50%; /* Center the snackbar */
   top: 30px; /* 30px from the bottom */
 
-  &.fail {
-    background-color: rgb(232, 36, 36); /* Black background color */
-    color: rgb(255, 255, 255);
+  &.dark{
+    background-color: rgb(255, 255, 255); /* Black background color */
+    color: rgb(0, 0, 0);
   }
 
-  &.success {
-    background-color: #00f593; /* Black background color */
-    color: black;
+  &.light{
+    background-color: rgb(0, 0, 0); /* Black background color */
+    color: rgb(255, 255, 255);
   }
+  // &.fail {
+  //   background-color: rgb(255, 207, 207); /* Black background color */
+  //   color: rgb(0, 0, 0);
+  // }
+
+  // &.success {
+  //   background-color: rgb(161, 227, 161); /* Black background color */
+  //   color: black;
+  // }
 
   &.show {
     visibility: visible; /* Show the snackbar */

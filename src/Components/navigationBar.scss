@@ -8,10 +8,13 @@
 .nav {
   width: 100%;
   height: 60px;
-  background-color: #808080;
-  background-image: url("../images/header_gradient.JPG");
+  // background-color: #80808000;
+  // background-image: url("../images/gradients/Radar.jpg");
+  // background-image: linear-gradient(to right, rgb(84, 159, 238),rgb(106, 85, 226), rgb(120, 68, 172));
+  // background-image: linear-gradient();
+  
   background-size: cover;
-  font-family: "dimitri";
+  font-family: "soul";
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -20,11 +23,11 @@
   
   
   &.dark {
-    background-color: $header-bg-d;
+    background-color: #80808000;
   }
 
   h3 {
-    color: #504d57;
+    color: #ffffff;
     font-weight: bold;
     align-items: center;
     &.dark {
@@ -40,6 +43,11 @@
     gap: 30px;
 
     .info{
+      cursor: pointer;
+      height: 30px;
+      width: 30px;
+    }
+    .stats{
       cursor: pointer;
       height: 30px;
       width: 30px;
@@ -92,6 +100,7 @@
       }
     }
   }
+
 
   // layout
   // body {

@@ -15,18 +15,18 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-position-y: bottom;
-  // background-color: white;
+  background-color: rgb(253, 253, 254);
   // background-image: url("./images/IMG_0185.JPG");
-  background-image: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url("./images/IMG_0185.JPG");
+  // background-image: linear-gradient(
+  //     rgba(255, 255, 255, 0.5),
+  //     rgba(255, 255, 255, 0.5)
+  //   ),
+  //   url("./images/IMG_0185.JPG");
 
   transition: all 500ms;
 
   &.dark {
-    background-color: rgb(87, 86, 86);
+    background-color: rgb(32, 32, 32);
     transition: background 500ms;
   }
 }

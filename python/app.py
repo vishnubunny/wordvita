@@ -7,7 +7,7 @@ from gensim.models import KeyedVectors
 from flask_cors import CORS
 from datetime import datetime
 
-word = KeyedVectors.load_word2vec_format('./wordvita/python/GoogleNews-vectors-negative300.bin', binary=True, limit = 100000)
+word = KeyedVectors.load_word2vec_format('./python/GoogleNews-vectors-negative300.bin', binary=True, limit = 100000)
 # arrays
 
 

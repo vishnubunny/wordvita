@@ -27,10 +27,14 @@ const SnackBar = forwardRef((props, ref) => {
   }));
 
   return (
+
+    
+
     <div
-      className={`snackbar ${showSnackBar.action ? "show" : "hide"} 
-      ${showSnackBar.type === "success" && "success"}
-      ${showSnackBar.type === "fail" && "fail"}`
+      className={`snackbar  ${showSnackBar.action ? "show" : "hide"} 
+      ${state?.Lightmode === true ? "light" : "dark"}
+      // ${showSnackBar.type === "success" && "success"}
+      // ${showSnackBar.type === "fail" && "fail"}`
     }
     >
       {showSnackBar.message}
