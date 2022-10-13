@@ -104,7 +104,7 @@ const ModalOverlay = (props) => {
               <p>Win Streak : {state.streak}</p>
               <p>Max win Streak : {state.maxStreak}</p>
             </div>
-            <Doughnut data={data} height={400} options={options} />
+            <Doughnut data={data} height={250} options={options} />
             <p>Next Wordvita in</p>
             <CountDown />
           </>
@@ -115,7 +115,7 @@ const ModalOverlay = (props) => {
       <footer className={"actions"}>
         {/* <button onClick={props.closethis1}>Close</button> */}
         {/* <p>{dateitem}</p> */}
-        {<button onClick={shareBtnHandler}>Share</button>}
+        {(state.lost||state.won) ? <button onClick={shareBtnHandler}>Share</button> : "" }
       </footer>
     </div>
   );

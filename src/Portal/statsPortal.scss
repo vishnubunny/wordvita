@@ -57,4 +57,14 @@
     justify-content: flex-end;
     background-color: white;
   }
+
+
 }
+
+@media screen and (max-width: 720px) {
+  .modal{
+    width: 80%;
+    left: 10%;
+  }
+}
+

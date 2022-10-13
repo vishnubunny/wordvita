@@ -11,7 +11,10 @@ body {
 .App {
   height: 100vh;
   width: 100vw;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: scroll;
   background-size: cover;
   background-repeat: no-repeat;
   background-position-y: bottom;
@@ -27,35 +30,92 @@ body {
 
   &.dark {
     background-color: rgb(32, 32, 32);
-    transition: background 500ms;
-  }
-}
-
-@media screen and (min-width: 768px) {
-  //For Laptops
-  .App {
-    .cg-main {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      .cg {
-        width: max-content;
-        margin-top: 20px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 30px;
-      }
+    transition: background 300ms;
+    hr{
+      // border: 0.5px solid white;
+      height: 0px;
+      background-color: white;
     }
   }
-}
-@media screen and (max-width: 768px) {
-  //For Phones
-  .App {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 20px;
+
+
+  hr{
+    // border: 1px solid black;
+    height: 0px;
+    width: 100%;
+    background-color: black;
+    
   }
+  // .card{
+  //   margin-top: 10px;
+  //   // p{
+    
+  //   // border: 1px solid rgb(102, 102, 102);
+  //   // align-items: center;
+  //   // margin: auto;
+  //   // width: 120px;
+  //   // height: 80px;
+  //   // display: flex;
+  //   // border-radius: 10px;
+  //   // text-align: center;
+  //   // justify-content: center;
+  //   // }
+  // }
+  // .cg-main{
+  //   .cg{
+  //     margin-top: 20px;
+  //   }
+  // }
+
+  
 }
+
+@media screen and (max-width: 1080px) {
+  .App {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+        
+
+
+        
+      }
+
+  
+}
+
+// @media screen and (min-width: 768px) {
+//   //For Laptops
+//   .App {
+//     .cg-main {
+//       width: 100%;
+//       display: flex;
+//       margin-top: 40px;
+//       flex-direction: column;
+//       align-items: center;
+//       justify-content: center;
+//       .cg {
+//         width: max-content;
+//         display: flex;
+//         margin-top: 40px;
+
+//         align-items: center;
+//         justify-content: center;
+//         gap: 30px;
+//       }
+//     }
+//   }
+// }
+// @media screen and (max-width: 768px) {
+//   //For Phones
+//   .App {
+//     display: flex;
+//     align-items: center;
+//     flex-direction: column;
+//     gap: 20px;
+//     .cg-main{}
+//   }
+// }
+
+

@@ -5,7 +5,7 @@ export const INITIAL_STATE = {
   ans: [],
   guesses_left: 5,
   error: 0,
-  // lost: false,
+  lost: false,
   Lightmode: true,
   valid: [],
   active: 0,
@@ -102,7 +102,10 @@ export const dataReducer = (state, action) => {
         guesses: [...state.guesses, action.input_value],
         guess_percent: [...state.guess_percent, 100],
         guesses_left: state.guesses_left - 1,
-        gameWon: true,
+        gameWon: 
+          
+           true,
+        
         error: 0,
         valid: [...state.valid, true],
         active: 5,
@@ -126,11 +129,17 @@ export const dataReducer = (state, action) => {
       return {
         ...state,
         guesses: [...state.guesses, action.input_value],
-        guess_percent: [...state.guess_percent, action.percent],
         guesses_left: state.guesses_left - 1,
         valid: [...state.valid, true],
         active: state.active + 1,
+
       };
+    }
+    case "TIMER": {
+      return{
+        ...state,
+        guess_percent: [...state.guess_percent, action.percent],
+      }
     }
     case "LOST": {
       console.log("LOST", state);
@@ -144,7 +153,6 @@ export const dataReducer = (state, action) => {
     }
 
     case "TOGGLE": {
-      console.log("Toggle", state);
 
       return {
         ...state,

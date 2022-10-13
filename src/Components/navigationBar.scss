@@ -12,27 +12,24 @@
   // background-image: url("../images/gradients/Radar.jpg");
   // background-image: linear-gradient(to right, rgb(84, 159, 238),rgb(106, 85, 226), rgb(120, 68, 172));
   // background-image: linear-gradient();
-  
+  margin-top: 5px;
+  margin-bottom: -5px;
+  margin-left: 1375px;
   background-size: cover;
   font-family: "soul";
   display: flex;
   align-items: center;
   justify-content: flex-start;
   font-size: xx-large;
-  padding-left: 5%;
-  
-  
-  &.dark {
-    background-color: #80808000;
-  }
 
+  
+  
+  
   h3 {
-    color: #ffffff;
+    color: #000000;
     font-weight: bold;
     align-items: center;
-    &.dark {
-      color: white;
-    }
+    
   }
 
   .right {
@@ -42,22 +39,25 @@
     right: 5%;
     gap: 30px;
 
-    .info{
+    svg{
       cursor: pointer;
-      height: 30px;
-      width: 30px;
+      height: 28px;
+      width: 28px;
+      // background-color: black;
     }
     .stats{
       cursor: pointer;
-      height: 30px;
-      width: 30px;
+      height: 24px;
+      width: 24px;
     }
 
     p{
       font-size: x-large;
       font-weight: bold;
-      color: white;
+      color: rgb(0, 0, 0);
       cursor: pointer;
+      
+      
     }
 
     .toggle {
@@ -74,7 +74,7 @@
       height: var(--size);
       box-shadow: inset calc(var(--size) * 0.33) calc(var(--size) * -0.25) 0;
       border-radius: 999px;
-      color: hsl(240, 100%, 95%);
+      color: hsl(0, 0%, 13%);
 
       transition: all 500ms;
 
@@ -99,6 +99,10 @@
             var(--ray-size);
       }
     }
+
+
+    
+  
   }
 
 
@@ -141,4 +145,56 @@
   //   padding: 0.5rem 0 0;
   //   transition: color 500ms;
   // }
+  &.dark{
+    background-color: #f9333300;
+    h3{
+      color: white;
+    }
+    .right{
+      p{
+      color: white;
+      }
+      svg{
+        fill: white;
+      }
+    }
+
+  }
+  transition: all 300ms;
 }
+
+
+
+@media  screen and (max-width: 768px) {
+  .nav{
+    margin-top: 0px;
+    margin-bottom: -30px;
+    margin-left: 10px;
+    h3{
+      font-size: x-large;
+    }
+    .right{
+      gap: 12px;
+    .toggle{
+      height: 20px;
+      width: 20px;
+    }
+    svg{
+      height: 26px;
+      width: 26px;
+    }
+    p{
+      font-size: large;
+    }
+
+    .stats{
+      height: 21px;
+      width: 21px;
+    }
+  }
+  
+
+  
+  }
+}
+

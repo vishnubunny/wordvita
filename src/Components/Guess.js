@@ -5,11 +5,21 @@ import { DataContext } from "../ContextAPI/dataContext";
 import axios from "axios";
 import arrow from "../images/east_black_24dp.svg";
 import SnackBar from "../UI/SnackBar";
+import { registerables } from "chart.js";
+import { keyboard } from "@testing-library/user-event/dist/keyboard";
+import { computeHeadingLevel } from "@testing-library/react";
 
 const Guess = () => {
   const { state, dispatch } = useContext(DataContext);
   const snackBarRef = useRef(null);
+  // const [flip, setFlip] = useState([false, true, true, true, true])
+  // const flip = [false, true, true, true, true];
+  // const changeFlip = (i)=>{
+  //   setFlip(prev=>(prev[i]=true,prev[i+1]=false))
+  //   // setFlip(prev=>{prev[i+1]=false})
 
+  // }
+  
   const defineSnackBar = ({ message, type }) => {
     snackBarRef.current.snackBar({
       message: message,
@@ -29,6 +39,7 @@ const Guess = () => {
   }, [state.guesses_left]);
 
   return (
+    
     <div className={`guess ${state?.Lightmode === true ? "" : "dark"}`}>
       {[...Array(5)].map((x, i) => {
         return (
@@ -37,6 +48,8 @@ const Guess = () => {
             key={i}
             active={state.active === i}
             triggerSnackBar={defineSnackBar}
+            // fd = {flip}
+            // xyz = {changeFlip}
           />
         );
       })}
@@ -48,10 +61,16 @@ const Guess = () => {
 const GuessItem = (props) => {
   const { state, dispatch } = useContext(DataContext);
   const [valid, setValid] = useState(false);
+  var flick = false;
+  
+  var flip = [false, true, true, true, true];
+  
   // const [response, setResponse] = useState();
   let guessInputRef = useRef("");
 
-  const validateWord = async () => {
+  const validateWord = async (e) => {
+    console.log(e)
+    
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -59,9 +78,13 @@ const GuessItem = (props) => {
     };
 
     try {
+      const prod = "https://wordvita.com/index",
+     local = "http://127.0.0.1:5000/index"
+     
       const res = await axios({
+        
         method: "post",
-        url: "http://127.0.0.1:5000/index",
+        url: local,
         data: {
           user_input: guessInputRef.current.value.toLowerCase().trim(),
           ans: state.ans[0],
@@ -75,7 +98,7 @@ const GuessItem = (props) => {
       if (res.data === "err") {
         dispatch({
           type: "INVALID_WORD",
-          input_value: guessInputRef.current.value,
+          input_value: guessInputRef.current.value.toLowerCase().trim(),
         });
         props.triggerSnackBar({
           message: "Invalid Word",
@@ -84,13 +107,45 @@ const GuessItem = (props) => {
         guessInputRef.current.value = "";
       } else {
         //go to next
+        
+        
         dispatch({
-          type: "ANSWER_INCORRECT",
-          input_value: guessInputRef.current.value,
-          valid_index: `guess ${props.id} : true`,
+          type: "TIMER",
           percent: res.data,
         });
-        // props.triggerSnackBar({
+
+        
+        // props.fd[props.id] = true;
+        // props.fd[props.id+1] = false;
+        // flip = true;
+
+        // props.xyz(props.id)
+        // props.fd[props.id] = true;
+        // props.fd[props.id+1] = false;
+
+        for(let i=0;i<=props.id;i++)
+        {
+          flip[i] = true;
+          flip[i+1] = false;
+          // flick = true;
+          // props.fd[props.id+1] = false;
+        }
+        flick = true;
+        console.log(flick);
+        console.log(props.id);
+
+        setTimeout(() => {
+          console.log(props.id+" Timer")
+          // flick = false;
+          dispatch({
+            type: "ANSWER_INCORRECT",
+            input_value: guessInputRef.current.value.toLowerCase().trim(),
+            valid_index: `guess ${props.id} : true`,
+            
+          });
+          flip[props.id] = true;
+        }, 1200);
+        //2props.triggerSnackBar({
         //   message: "Show test",
         //   type: "success",
         // });
@@ -113,6 +168,18 @@ const GuessItem = (props) => {
   const buttonClickHandler = (e) => {
     e.preventDefault();
     //Nothing typed
+    console.log(""+" button clicked")
+    if(state.guesses.includes(guessInputRef.current.value.toLowerCase().trim()))
+    {
+      props.triggerSnackBar({
+        message: "You guessed it already..!"
+        
+      });
+      return;
+    }
+    
+    // flip[props.active] = true;
+    console.log(guessInputRef.current.value.toLowerCase().trim() + " console ")
     if (guessInputRef.current.value === "") {
       dispatch({ type: "INVALID_WORD" });
       props.triggerSnackBar({
@@ -124,57 +191,54 @@ const GuessItem = (props) => {
     }
 
     //Answer Correct
-    if (state.ans.includes(guessInputRef.current.value)) {
+    if (state.ans.includes(guessInputRef.current.value.toLowerCase().trim())) {
       console.log("Answer array includes this input");
+
       dispatch({
         type: "ANSWER_CORRECT",
         valid_index: props.id,
-        input_value: guessInputRef.current.value,
+        input_value: guessInputRef.current.value.toLowerCase().trim(),
         percent: 100,
       });
-      props.triggerSnackBar({
-        message: "Woohoo!! you Won",
-        type: "success",
-      });
+      flick = false;
+      // props.triggerSnackBar({
+      //   message: "Woohoo!! you Won",
+      //   type: "success",
+      // });
       return;
     }
 
     //Incorrect Incorrect
     // Check for validity
-    validateWord();
+    if(e.keyCode===13){
+      console.log("Enter")
+    }
+    console.log(props.active+" before submit")
+    validateWord(e);
+    
+
   };
 
   return (
     <div className="guessitem">
-      {props.active ? (
-        <form className="guessinput" onSubmit={buttonClickHandler}>
+    
+        <form className={`guessinput ${!props.active && "disabled"}`} onSubmit={buttonClickHandler}>
           <input
             type={"text"}
             ref={guessInputRef}
             defaultValue={
               state.guesses[props.id] || guessInputRef?.current.value
+              
             }
             autoFocus
+            disabled={flip[props.id]}
           />
-          <button className="submit-guess" type="submit">
+          <button className={`submit-guess ${!props.active && "disabled"}`} type="submit" disabled={flip[props.id]}>
             <img src={arrow} />
+            {/* <p></p> */}
           </button>
         </form>
-      ) : (
-        <div className="guessinput disabled">
-          <input
-            type={"text"}
-            ref={guessInputRef}
-            defaultValue={
-              state.guesses[props.id] || guessInputRef?.current.value
-            }
-            disabled
-          />
-          <button className="submit-guess disabled">
-            <img src={arrow} />
-          </button>
-        </div>
-      )}
+      
 
       <div className="valid">
         <div className="progress-div">
@@ -190,7 +254,10 @@ const GuessItem = (props) => {
             barContainerClassName="container"
             // customLabel={`${props.progress}%`}
             labelAlignment={"center"}
-            bgColor={"#02ab02"}
+            height={"26px"}
+            width={"180px"}
+            // bgColor={"#02ab02"}
+            bgColor={"#00D100"}
 
             // completedClassName="barCompleted"
           />

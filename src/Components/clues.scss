@@ -10,25 +10,160 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    margin-top: 10px;
     gap: 2px;
-    background: rgb(244, 244, 244);
+    // background: rgb(244, 244, 244);
+    // background: rgb(138, 138, 138);
     padding: 5px;
     border-radius: 10px;
   }
+
+  //Animation CSS
+  ul.cards-split-delay{
+    // width: 660px; 
+    // height: 280px;
+    right: -25px;
+    height: 100px;
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    // list-style-type:;
+    position: relative;
+    // margin: 0 auto 20px;
+    cursor: pointer;
+    // li.title{ margin: 0 0 20px;
+    //   h2{ font-weight: 700; }
+    // }
+    li.card{
+      // background: rgb(152, 115, 232); 
+      background: rgb(115, 71, 212);
+      // overflow: hidden;
+      border: 1px solid rgb(255, 255, 255);
+      height: 100px; width: 100px;
+      border-radius: 10px;
+      position: absolute;
+      
+      box-shadow: 1px 2px 2px 0 rgb(174, 174, 174);
+      transition: all 0.7s cubic-bezier(.63,.16, .03,1.12);
+      // transition: all 1s cubic-bezier(0,0.05,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      left: 0px;
+      right: 0px;
+      top: 0px;
+      bottom: 0px;
+
+      div.content{
+        // padding: 5px 10px;
+        
+        p{
+          color: white;
+        }
+        
+      }
+      
+      &.card-1{ 
+        z-index: 10; transform: rotateZ(-2deg);
+      }
+      &.card-2{ 
+        z-index: 9; transform: rotateZ(-7deg);
+        
+      }
+      &.card-3{ 
+        z-index: 8; transform: rotateZ(5deg);
+        
+      }
+    }
+    
+    &.transition {
+      li.card.active {
+        transform: rotateZ(0deg);
+        &.card-1.active{
+          
+          left: -220px;
+          right: 0px;
+          top: 125px;
+          height: 30px;
+          width: 100px;
+          border-radius: 5px;
+        }
+  
+        &.card-2.active{
+          left: -110px;
+          right: 0px;
+          top: 125px;
+          height: 30px;
+          width: 100px;
+          border-radius: 5px;
+
+        }
+  
+        &.card-3.active{
+          left: 0px;
+          right: 0px;
+          top: 125px;
+          height: 30px;
+          width: 100px;
+          border-radius: 5px;
+          
+        }
+
+        &.card-4.active{
+          left: 110px;
+          right: 0px;
+          top: 125px;
+          height: 30px;
+          width: 100px;
+          border-radius: 5px;
+
+        }
+  
+        &.card-5.active{
+          left: 220px;
+          right: 0px;
+          top: 125px;
+          height: 30px;
+          width: 100px;
+          border-radius: 5px;
+          
+        }
+
+        &.card-6.active{
+          left: 330px;
+          right: 0px;
+          top: 125px;
+          height: 30px;
+          width: 100px;
+          border-radius: 5px;
+          
+        }
+      }
+    }
+  }
+  //Animation CSS
+
+
 }
 
 .clueItem {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(218, 218, 218);
+  // background-color: rgb(145, 84, 191);
+  // background-color: #242470;
+  border: 3px solid rgb(177,156,217);
   height: 20px;
-  width: 100px;
+  color: black;
+  width: 90px;
+  
   border-radius: 5px;
 
   &.dull {
-    opacity: 10%;
+    opacity: 0%;
   }
 }
 
@@ -42,7 +177,8 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 1080px) {
+  //For Phones
   .clues {
     display: flex;
     align-items: center;
@@ -53,14 +189,175 @@
       align-items: center;
       justify-content: center;
       gap: 2px;
-      background: rgb(244, 244, 244);
+      // background: rgb(138, 138, 138);
       padding: 5px;
       border-radius: 10px;
+    }
+
+    ul.cards-split-delay{
+      // width: 660px; 
+      // height: 280px;
+      right: -25px;
+      height: 100px;
+      width: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      // list-style-type:;
+      position: relative;
+      // margin: 0 auto 20px;
+      cursor: pointer;
+      // li.title{ margin: 0 0 20px;
+      //   h2{ font-weight: 700; }
+      // }
+      li.card{
+        // background: rgb(152, 115, 232); 
+        background: rgb(115, 71, 212);
+        // overflow: hidden;
+        border: 1px solid rgb(255, 255, 255);
+        height: 100px; width: 100px;
+        border-radius: 10px;
+        position: absolute;
+        
+        box-shadow: 1px 2px 2px 0 rgb(174, 174, 174);
+        transition: all 0.5s cubic-bezier(.63,.16, .03,1.12);
+        // transition: all 1s cubic-bezier(0,0.05,0,0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        left: 0px;
+        right: 0px;
+        top: 0px;
+        bottom: 0px;
+  
+        div.content{
+          // padding: 5px 10px;
+          
+          p{
+            color: white;
+          }
+          
+        }
+        
+        &.card-1{ 
+          z-index: 10; transform: rotateZ(-2deg);
+        }
+        &.card-2{ 
+          z-index: 9; transform: rotateZ(-7deg);
+          
+        }
+        &.card-3{ 
+          z-index: 8; transform: rotateZ(5deg);
+          
+        }
+      }
+      
+      &.transition {
+        li.card.active {
+          
+          transform: rotateZ(0deg);
+          &.card-1.active{
+            
+            left: -130px;
+            right: 0px;
+            top: 125px;
+            height: 20px;
+            width: 65px;
+
+            border-radius: 5px;
+
+            div.content{
+              p{
+                font-size: 13px;
+              }
+            }
+            
+          }
+    
+          &.card-2.active{
+            left: -60px;
+            right: 0px;
+            top: 125px;
+            height: 20px;
+            width: 65px;
+            border-radius: 5px;
+            
+            div.content{
+              p{
+                font-size: 13px;
+              }
+            }
+          }
+    
+          &.card-3.active{
+            left: 10px;
+            right: 0px;
+            top: 125px;
+            height: 20px;
+            width: 65px;
+            border-radius: 5px;
+            
+            div.content{
+              p{
+                font-size: 13px;
+              }
+            }
+          }
+  
+          &.card-4.active{
+            left: 80px;
+            right: 0px;
+            top: 125px;
+            height: 20px;
+            width: 65px;
+            border-radius: 5px;
+            
+            div.content{
+              p{
+                font-size: 13px;
+              }
+            }
+          }
+    
+          &.card-5.active{
+            left: 150px;
+            right: 0px;
+            top: 125px;
+            height: 20px;
+            width: 65px;
+            border-radius: 5px;
+            
+            div.content{
+              p{
+                font-size: 13px;
+              }
+            }
+          }
+
+          &.card-6.active{
+            left: -2000px;
+            right: 0px;
+            top: 125px;
+            height: 20px;
+            width: 65px;
+            border-radius: 5px;
+            
+            div.content{
+              p{
+                font-size: 13px;
+              }
+            }
+          }
+        }
+      }
     }
   }
 
   .clueItem {
-    width: 100px;
+    width: 70px;
+    font-size: 10px;
   }
 }
 

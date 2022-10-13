@@ -8,6 +8,7 @@ import DemoPortal from "./Portal/DemoPortal";
 import axios from "axios";
 import StatsPortal from "./Portal/StatsPortal";
 import Footer from "./Components/Footer";
+import Test2 from "./test2";
 
 function App() {
   const { state, dispatch } = useContext(DataContext);
@@ -42,10 +43,12 @@ function App() {
   };
 
   const initial_setup = async (id) => {
+    const prod = "https://wordvita.com/index1",
+     local = "http://127.0.0.1:5000/index1"
     try {
       const res = await axios({
         method: "get",
-        url: "http://127.0.0.1:5000/index1",
+        url: local,
       });
 
       if (res.data !== "err") setRes(res);
@@ -153,19 +156,29 @@ function App() {
         closeStats={closeStatsButtonHandler}
         runInitialsetup={initial_setup}
       />
+      <hr/>
       <div className="cg-main">
+      <div className={`card`}>
+
+      
+      {/* <p>{state.gameWon ? "Game Won" : state.clues[state.active]}</p> */}
+      
+        
+    </div>
         <div className="cg">
-          {(response || old_data !== null) && <Clues />}
+        {(response || old_data !== null) && <Clues />}
           {(response || old_data !== null) && <Guess />}
+          
         </div>
       </div>
       {/* {state.lost && <p>You Lost! Try Again</p>} */}
       {/* // create a modal */}
       {/* {state.gameWon && <p> You Won the match</p>} */}
-
+      {/* <Test2/> */}
       <Footer />
     </div>
   );
 }
+
 
 export default App;
