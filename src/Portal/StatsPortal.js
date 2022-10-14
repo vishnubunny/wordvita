@@ -91,9 +91,10 @@ const ModalOverlay = (props) => {
   };
 
   return (
-    <div className="modal">
+    <div className={`modal ${!state.Lightmode && "dark"}`}>
       <div className={"header"}>
         <h2>STATISTICS</h2>
+        <button onClick={props.closethis1}>X</button>
       </div>
       <div className={"content"}>
         {state.played !== 0 ? (
@@ -104,7 +105,11 @@ const ModalOverlay = (props) => {
               <p>Win Streak : {state.streak}</p>
               <p>Max win Streak : {state.maxStreak}</p>
             </div>
-            <Doughnut data={data} height={250} options={options} />
+            <Doughnut
+              data={data}
+              height={250}
+              options={options}
+            />
             <p>Next Wordvita in</p>
             <CountDown />
           </>
@@ -115,7 +120,22 @@ const ModalOverlay = (props) => {
       <footer className={"actions"}>
         {/* <button onClick={props.closethis1}>Close</button> */}
         {/* <p>{dateitem}</p> */}
-        {(state.lost||state.won) ? <button onClick={shareBtnHandler}>Share</button> : "" }
+        {state.lost || state.won ? (
+          <button onClick={shareBtnHandler}>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24"
+              viewBox="0 0 24 24"
+              width="24"
+            >
+              <path d="M0 0h24v24H0z" fill="none" />
+              <path d="M10 9V5l-7 7 7 7v-4.1c5 0 8.5 1.6 11 5.1-1-5-4-10-11-11z" />
+            </svg>
+            Share
+          </button>
+        ) : (
+          ""
+        )}
       </footer>
     </div>
   );

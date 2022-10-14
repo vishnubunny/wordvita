@@ -44,11 +44,26 @@ function App() {
 
   const initial_setup = async (id) => {
     const prod = "https://wordvita.com/index1",
-     local = "http://127.0.0.1:5000/index1"
+      local = "http://127.0.0.1:5000/index1";
     try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const releaseDate = new Date("10/12/2022");
+      const today = new Date();
+      const diffTime = Math.abs(today - releaseDate);
+      const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+      console.log(days);
       const res = await axios({
-        method: "get",
+        method: "post",
         url: local,
+        data: {
+          days,
+        },
+        config,
       });
 
       if (res.data !== "err") setRes(res);
@@ -109,7 +124,6 @@ function App() {
       initial_setup("next");
       return;
     } else {
-      console.log("Refreshed same day");
       dispatch({
         type: "SET_INITIAL_DATA",
         old: old_data,
@@ -147,8 +161,12 @@ function App() {
 
   return (
     <div className={`App ${state?.Lightmode === true ? "" : "dark"}`}>
-      {showInfo && <DemoPortal closethis={closeInfoButtonHandler} />}
-      {showStats && <StatsPortal closethis={closeStatsButtonHandler} />}
+      <div className={`info ${""}`}>
+        {showInfo && <DemoPortal closethis={closeInfoButtonHandler} />}
+      </div>
+      <div className={`stats ${""}`}>
+        {showStats && <StatsPortal closethis={closeStatsButtonHandler} />}
+      </div>
       <NavigationBar
         openthis={openInfoButtonHandler}
         closethis={closeInfoButtonHandler}
@@ -156,19 +174,14 @@ function App() {
         closeStats={closeStatsButtonHandler}
         runInitialsetup={initial_setup}
       />
-      <hr/>
+      <hr />
       <div className="cg-main">
-      <div className={`card`}>
-
-      
-      {/* <p>{state.gameWon ? "Game Won" : state.clues[state.active]}</p> */}
-      
-        
-    </div>
+        <div className={`card`}>
+          {/* <p>{state.gameWon ? "Game Won" : state.clues[state.active]}</p> */}
+        </div>
         <div className="cg">
-        {(response || old_data !== null) && <Clues />}
+          {(response || old_data !== null) && <Clues />}
           {(response || old_data !== null) && <Guess />}
-          
         </div>
       </div>
       {/* {state.lost && <p>You Lost! Try Again</p>} */}
@@ -179,6 +192,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;

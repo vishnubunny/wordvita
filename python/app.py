@@ -91,17 +91,19 @@ app.config['CORS_HEADERS'] = 'Content-Type'
 def main():
     return render_template('App.js')
 
-@app.route('/index1', methods=['GET'])
+@app.route('/index1', methods=['POST'])
 def index1():
-    now = datetime.now()
-    local_now = now.astimezone()
-    local_tz = local_now.date()
+    # now = datetime.now()
+    # local_now = now.astimezone()
+    # local_tz = local_now.date()
 
-    d1 = datetime.strptime("2022/10/11", "%Y/%m/%d")
-    days = local_tz - d1.date()
+    # d1 = datetime.strptime("2022/10/11", "%Y/%m/%d")
+    # days = local_tz - d1.date()
+    received = request.json
+    data1 = received['days']
     try:
-        today_clues = clues[days.days]
-        today_answers = answers[days.days]
+        today_clues = clues[data1]
+        today_answers = answers[data1]
         return {"clues":today_clues, "answers":today_answers}
     except:
         return "err"

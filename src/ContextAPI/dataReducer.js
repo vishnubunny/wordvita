@@ -9,7 +9,7 @@ export const INITIAL_STATE = {
   Lightmode: true,
   valid: [],
   active: 0,
-  stats: [-10, 0, 0, 0, 0],
+  stats: [0, 0, 0, 0, 0],
   gameWon: false,
 
   played: 0,
@@ -19,10 +19,11 @@ export const INITIAL_STATE = {
 
   opened_date: "",
   next_date: "",
+  flip: {},
 };
 
 export const dataReducer = (state, action) => {
-  // console.log(action.valid_index);
+  console.log(action);
   switch (action.type) {
     //Play again will also trigger this
     case "SET_INITIAL_DATA": {
@@ -34,27 +35,35 @@ export const dataReducer = (state, action) => {
           ans: action.payload?.answers,
           opened_date: action.opened_date,
           next_date: action.next_date,
+          flip: {
+            0: false,
+            1: true,
+            2: true,
+            3: true,
+            4: true,
+          },
         };
-      } else
-        return {
-          ...state,
-          clues: action.old.clues,
-          ans: action.old.ans,
-          guesses: action.old.guesses,
-          guesses_left: action.old.guesses_left,
-          gameWon: action.old.gameWon,
-          valid: action.old.valid,
-          active: action.old.active,
-          Lightmode: action.old.Lightmode,
-          guess_percent: action.old.guess_percent,
-          stats: action.old.stats,
-          played: action.old.played,
-          won: action.old.won,
-          streak: action.old.streak,
-          maxStreak: action.old.maxStreak,
-          opened_date: action.old.opened_date,
-          next_date: action.old.next_date,
-        };
+      } else console.log("same day refresh");
+      return {
+        ...state,
+        clues: action.old.clues,
+        ans: action.old.ans,
+        guesses: action.old.guesses,
+        guesses_left: action.old.guesses_left,
+        gameWon: action.old.gameWon,
+        valid: action.old.valid,
+        active: action.old.active,
+        Lightmode: action.old.Lightmode,
+        guess_percent: action.old.guess_percent,
+        stats: action.old.stats,
+        played: action.old.played,
+        won: action.old.won,
+        streak: action.old.streak,
+        maxStreak: action.old.maxStreak,
+        opened_date: action.old.opened_date,
+        next_date: action.old.next_date,
+        flip: action.old.flip,
+      };
     }
     case "PLAYING_NEXT_DAY": {
       console.log("Playing other day");
@@ -102,10 +111,8 @@ export const dataReducer = (state, action) => {
         guesses: [...state.guesses, action.input_value],
         guess_percent: [...state.guess_percent, 100],
         guesses_left: state.guesses_left - 1,
-        gameWon: 
-          
-           true,
-        
+        gameWon: true,
+
         error: 0,
         valid: [...state.valid, true],
         active: 5,
@@ -121,6 +128,7 @@ export const dataReducer = (state, action) => {
         streak: state.streak + 1,
         maxStreak:
           state.maxStreak <= state.streak ? state.streak + 1 : state.maxStreak,
+        
       };
     }
     case "ANSWER_INCORRECT": {
@@ -132,14 +140,21 @@ export const dataReducer = (state, action) => {
         guesses_left: state.guesses_left - 1,
         valid: [...state.valid, true],
         active: state.active + 1,
-
       };
     }
+
     case "TIMER": {
-      return{
+      return {
         ...state,
         guess_percent: [...state.guess_percent, action.percent],
-      }
+      };
+    }
+
+    case "FLIPPER": {
+      return {
+        ...state,
+        flip: action.flipi,
+      };
     }
     case "LOST": {
       console.log("LOST", state);
@@ -153,7 +168,6 @@ export const dataReducer = (state, action) => {
     }
 
     case "TOGGLE": {
-
       return {
         ...state,
         Lightmode: !state.Lightmode,

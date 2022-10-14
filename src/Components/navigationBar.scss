@@ -1,35 +1,33 @@
 @import "./global.scss";
 
 // @font-face {
-//   font-family: 'dimitri'; /*a name to be used later*/
-//   src: url('../fonts/DIMITRI_.TTF'); /*URL to font*/
+//   font-family: 'dimitri'; /a name to be used later/
+//   src: url('../fonts/DIMITRI_.TTF'); /URL to font/
 // }
 
 .nav {
   width: 100%;
-  height: 60px;
+  height: 120px;
   // background-color: #80808000;
   // background-image: url("../images/gradients/Radar.jpg");
   // background-image: linear-gradient(to right, rgb(84, 159, 238),rgb(106, 85, 226), rgb(120, 68, 172));
   // background-image: linear-gradient();
-  margin-top: 5px;
-  margin-bottom: -5px;
-  margin-left: 1375px;
+  // margin-top: 5px;
+  // margin-bottom: -5px;
+  // margin-left: 1375px;
   background-size: cover;
   font-family: "soul";
   display: flex;
   align-items: center;
-  justify-content: flex-start;
   font-size: xx-large;
-
-  
-  
-  
+  padding: 20px;
+  box-sizing: border-box;
   h3 {
     color: #000000;
     font-weight: bold;
     align-items: center;
-    
+    position: absolute;
+    left: 5%;
   }
 
   .right {
@@ -39,25 +37,23 @@
     right: 5%;
     gap: 30px;
 
-    svg{
+    svg {
       cursor: pointer;
       height: 28px;
       width: 28px;
       // background-color: black;
     }
-    .stats{
+    .stats {
       cursor: pointer;
       height: 24px;
       width: 24px;
     }
 
-    p{
+    p {
       font-size: x-large;
       font-weight: bold;
       color: rgb(0, 0, 0);
       cursor: pointer;
-      
-      
     }
 
     .toggle {
@@ -99,12 +95,7 @@
             var(--ray-size);
       }
     }
-
-
-    
-  
   }
-
 
   // layout
   // body {
@@ -145,56 +136,46 @@
   //   padding: 0.5rem 0 0;
   //   transition: color 500ms;
   // }
-  &.dark{
+  &.dark {
     background-color: #f9333300;
-    h3{
+    h3 {
       color: white;
     }
-    .right{
-      p{
-      color: white;
+    .right {
+      p {
+        color: white;
       }
-      svg{
+      svg {
         fill: white;
       }
     }
-
   }
   transition: all 300ms;
 }
 
-
-
-@media  screen and (max-width: 768px) {
-  .nav{
-    margin-top: 0px;
-    margin-bottom: -30px;
-    margin-left: 10px;
-    h3{
+@media screen and (max-width: 768px) {
+  .nav {
+    h3 {
       font-size: x-large;
     }
-    .right{
+    .right {
       gap: 12px;
-    .toggle{
-      height: 20px;
-      width: 20px;
-    }
-    svg{
-      height: 26px;
-      width: 26px;
-    }
-    p{
-      font-size: large;
-    }
+      .toggle {
+        height: 20px;
+        width: 20px;
+      }
+      svg {
+        height: 26px;
+        width: 26px;
+      }
+      p {
+        font-size: large;
+      }
 
-    .stats{
-      height: 21px;
-      width: 21px;
+      .stats {
+        height: 21px;
+        width: 21px;
+      }
     }
-  }
-  
-
-  
   }
 }
-

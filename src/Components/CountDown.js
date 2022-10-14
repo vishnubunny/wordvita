@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { DataContext } from "../ContextAPI/dataContext";
 
-import "./countDown.scss"
+import "./countDown.scss";
 
 const CountDown = () => {
   const { state } = useContext(DataContext);
@@ -40,7 +40,11 @@ const CountDown = () => {
     };
   }, []);
 
-  return <div className="countdown">{displayDiff}</div>;
+  return (
+    <div className={`countdown ${!state.Lightmode && "dark"}`}>
+      {displayDiff}
+    </div>
+  );
 };
 
 export default CountDown;
