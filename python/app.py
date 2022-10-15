@@ -78,8 +78,8 @@ word = KeyedVectors.load_word2vec_format('./python/GoogleNews-vectors-negative30
 
 
 
-clues=[["round","kids","stick","eat","lick"],["circle","food","triangle","toppings","bake"],["hair","tone","touch","sweat","organ"]]
-answers=[["lollipop","lollipops"],["pizza","pizzas"],["skin"]]
+clues=[["round","kids","stick","eat","lick"],["circle","food","triangle","toppings","bake"],["hair","tone","touch","sweat","organ"],["round","kids","stick","eat","lick"],["circle","food","triangle","toppings","bake"],["hair","tone","touch","sweat","organ"]]
+answers=[["lollipop","lollipops"],["pizza","pizzas"],["skin"],["lollipop","lollipops"],["pizza","pizzas"],["skin"]]
 
 app = Flask(__name__)
 cors = CORS(app)

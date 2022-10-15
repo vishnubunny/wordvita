@@ -8,26 +8,13 @@ import DemoPortal from "./Portal/DemoPortal";
 import axios from "axios";
 import StatsPortal from "./Portal/StatsPortal";
 import Footer from "./Components/Footer";
-import Test2 from "./test2";
 
 function App() {
   const { state, dispatch } = useContext(DataContext);
   const [response, setRes] = useState({});
   const [showInfo, setShowInfo] = useState(false);
   const [showStats, setShowStats] = useState(false);
-
-  //For testing date
-  const [dateData, setDatedate] = useState("");
   let date = new Date();
-  useEffect(() => {
-    const start = new Date();
-    // console.log(start);
-    const da = new Date(start.getTime());
-    setDatedate(
-      `${start.getTime()} ${da.toLocaleTimeString()} ${start.toDateString()}`
-    );
-  }, []);
-  // for testing date -- end
 
   const closeInfoButtonHandler = () => {
     setShowInfo(false);
@@ -42,6 +29,7 @@ function App() {
     setShowStats(true);
   };
 
+  //is called in useEffect
   const initial_setup = async (id) => {
     const prod = "https://wordvita.com/index1",
       local = "http://127.0.0.1:5000/index1";
@@ -52,11 +40,13 @@ function App() {
         },
       };
 
-      const releaseDate = new Date("10/12/2022");
+      const releaseDate = new Date("10/15/2022");
       const today = new Date();
       const diffTime = Math.abs(today - releaseDate);
       const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-      console.log(days);
+      // console.log(days);
+
+      //Posting days diff to get the guess and clues array
       const res = await axios({
         method: "post",
         url: local,
@@ -66,19 +56,14 @@ function App() {
         config,
       });
 
-      if (res.data !== "err") setRes(res);
-      else {
-        console.log("Error from server");
-        return;
-      }
+      setRes(res);
 
       ///For Tomorrow date
-      console.log("today : ", date.toLocaleString());
+      // console.log("today : ", date.toLocaleString());
       let tom_date = new Date();
-      let tomorrow = await tom_date.setDate(tom_date.getDate() + 1);
-      let next_date =
-        (await new Date(tomorrow).toJSON().split("T")[0]) + "T00:00:00";
-      console.log("Tomorrow", next_date);
+      let tomorrow = tom_date.setDate(tom_date.getDate() + 1);
+      let next_date = new Date(tomorrow).toJSON().split("T")[0] + "T00:00:00";
+      // console.log("Tomorrow", next_date);
 
       if (id === "first") {
         dispatch({
@@ -102,19 +87,19 @@ function App() {
     }
   };
 
-  let old_data;
+  let old_data = null;
 
+  //Main useEffect for loading data
   useEffect(() => {
     old_data = JSON.parse(localStorage.getItem("user_data"));
-    console.log("OLD DATA", old_data);
     let d2;
     let date_diff;
+
     if (old_data !== null) {
       d2 = new Date();
       let d1 = new Date(old_data.opened_date);
       let days = d2.getTime() - (d1.getTime() + 60000);
       date_diff = parseInt(days / (86400 * 1000));
-      console.log(date_diff);
     }
 
     if (old_data === null) {
@@ -132,24 +117,21 @@ function App() {
     }
   }, []);
 
+  //Can be optimised by adding individual dependencies
   const uniqueState = useMemo(() => {
     return state;
   }, [state]);
 
   useEffect(() => {
-    let removeStatsTimer1, removeStatsTimer2;
+    let removeStatsTimer1;
     if (state.gameWon) {
       removeStatsTimer1 = setTimeout(() => {
         setShowStats(true);
-      }, 2000);
-      // removeStatsTimer2 = setTimeout(() => {
-      //   setShowStats(false);
-      // }, 10000);
+      }, 3000);
     }
 
     return () => {
       clearTimeout(removeStatsTimer1);
-      // clearTimeout(removeStatsTimer2);
     };
   }, [uniqueState]);
 
@@ -157,16 +139,10 @@ function App() {
     localStorage.setItem("user_data", JSON.stringify(state));
   }, [uniqueState]);
 
-  // console.log(state);
-
   return (
     <div className={`App ${state?.Lightmode === true ? "" : "dark"}`}>
-      <div className={`info ${""}`}>
-        {showInfo && <DemoPortal closethis={closeInfoButtonHandler} />}
-      </div>
-      <div className={`stats ${""}`}>
-        {showStats && <StatsPortal closethis={closeStatsButtonHandler} />}
-      </div>
+      {showInfo && <DemoPortal closethis={closeInfoButtonHandler} />}
+      {showStats && <StatsPortal closethis={closeStatsButtonHandler} />}
       <NavigationBar
         openthis={openInfoButtonHandler}
         closethis={closeInfoButtonHandler}
@@ -175,19 +151,19 @@ function App() {
         runInitialsetup={initial_setup}
       />
       <hr />
-      <div className="cg-main">
-        <div className={`card`}>
-          {/* <p>{state.gameWon ? "Game Won" : state.clues[state.active]}</p> */}
-        </div>
-        <div className="cg">
-          {(response || old_data !== null) && <Clues />}
-          {(response || old_data !== null) && <Guess />}
-        </div>
+      <div className="cg">
+        {response?.data !== "err" || old_data !== null ? (
+          <Clues />
+          // <>gello</>
+        ) : (
+          <p>No data from server</p>
+        )}
+        {response?.data !== "err" || old_data !== null ? (
+          <Guess />
+        ) : (
+          <p>So not loading guesses and clues to play!</p>
+        )}
       </div>
-      {/* {state.lost && <p>You Lost! Try Again</p>} */}
-      {/* // create a modal */}
-      {/* {state.gameWon && <p> You Won the match</p>} */}
-      {/* <Test2/> */}
       <Footer />
     </div>
   );

@@ -1,89 +1,69 @@
 .clues {
-  width: 100%;
+  // width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
 
-  .items {
-    width: max-content;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 10px;
-    gap: 2px;
-    // background: rgb(244, 244, 244);
-    // background: rgb(138, 138, 138);
-    padding: 5px;
-    border-radius: 10px;
-  }
-
   //Animation CSS
-  ul.cards-split-delay{
-    // width: 660px; 
-    // height: 280px;
-    right: -25px;
+  .cards-split-delay {
     height: 100px;
-    width: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    // list-style-type:;
     position: relative;
-    // margin: 0 auto 20px;
     cursor: pointer;
-    // li.title{ margin: 0 0 20px;
-    //   h2{ font-weight: 700; }
-    // }
-    li.card{
-      // background: rgb(152, 115, 232); 
+
+    li.card {
       background: rgb(115, 71, 212);
-      // overflow: hidden;
       border: 1px solid rgb(255, 255, 255);
-      height: 100px; width: 100px;
+      height: 100px;
+      width: 100px;
       border-radius: 10px;
       position: absolute;
-      
+
       box-shadow: 1px 2px 2px 0 rgb(174, 174, 174);
-      transition: all 0.7s cubic-bezier(.63,.16, .03,1.12);
-      // transition: all 1s cubic-bezier(0,0.05,0,0.5);
+      transition: all 0.7s cubic-bezier(0.63, 0.16, 0.03, 1.12);
       display: flex;
       align-items: center;
       justify-content: center;
-      
       left: 0px;
       right: 0px;
       top: 0px;
       bottom: 0px;
 
-      div.content{
-        // padding: 5px 10px;
-        
-        p{
+      div.content {
+        p {
           color: white;
         }
-        
       }
-      
-      &.card-1{ 
-        z-index: 10; transform: rotateZ(-2deg);
+
+      &.card-1 {
+        z-index: 10;
+        transform: rotateZ(-2deg);
       }
-      &.card-2{ 
-        z-index: 9; transform: rotateZ(-7deg);
-        
+      &.card-2 {
+        z-index: 9;
+        transform: rotateZ(-7deg);
       }
-      &.card-3{ 
-        z-index: 8; transform: rotateZ(5deg);
-        
+      &.card-3 {
+        z-index: 8;
+        transform: rotateZ(5deg);
+      }
+      &.card-4 {
+        z-index: 7;
+        transform: rotateZ(-7deg);
+      }
+      &.card-5 {
+        z-index: 6;
+        transform: rotateZ(5deg);
       }
     }
-    
+
     &.transition {
       li.card.active {
         transform: rotateZ(0deg);
-        &.card-1.active{
-          
+        &.card-1.active {
           left: -220px;
           right: 0px;
           top: 125px;
@@ -91,80 +71,55 @@
           width: 100px;
           border-radius: 5px;
         }
-  
-        &.card-2.active{
+
+        &.card-2.active {
           left: -110px;
           right: 0px;
           top: 125px;
           height: 30px;
           width: 100px;
           border-radius: 5px;
-
         }
-  
-        &.card-3.active{
+
+        &.card-3.active {
           left: 0px;
           right: 0px;
           top: 125px;
           height: 30px;
           width: 100px;
           border-radius: 5px;
-          
         }
 
-        &.card-4.active{
+        &.card-4.active {
           left: 110px;
           right: 0px;
           top: 125px;
           height: 30px;
           width: 100px;
           border-radius: 5px;
-
         }
-  
-        &.card-5.active{
+
+        &.card-5.active {
           left: 220px;
           right: 0px;
           top: 125px;
           height: 30px;
           width: 100px;
           border-radius: 5px;
-          
         }
 
-        &.card-6.active{
+        &.card-6.active {
           left: 330px;
           right: 0px;
           top: 125px;
           height: 30px;
           width: 100px;
           border-radius: 5px;
-          
         }
       }
     }
   }
   //Animation CSS
-
-
-}
-
-.clueItem {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  // background-color: rgb(145, 84, 191);
-  // background-color: #242470;
-  border: 3px solid rgb(177,156,217);
-  height: 20px;
-  color: black;
-  width: 90px;
-  
-  border-radius: 5px;
-
-  &.dull {
-    opacity: 0%;
-  }
 }
 
 @media screen and (min-width: 768px) {
@@ -189,77 +144,63 @@
       align-items: center;
       justify-content: center;
       gap: 2px;
-      // background: rgb(138, 138, 138);
       padding: 5px;
       border-radius: 10px;
     }
 
-    ul.cards-split-delay{
-      // width: 660px; 
-      // height: 280px;
+    ul.cards-split-delay {
       right: -25px;
       height: 100px;
       width: 100px;
       display: flex;
       align-items: center;
       justify-content: center;
-      
-      // list-style-type:;
       position: relative;
-      // margin: 0 auto 20px;
       cursor: pointer;
-      // li.title{ margin: 0 0 20px;
-      //   h2{ font-weight: 700; }
-      // }
-      li.card{
-        // background: rgb(152, 115, 232); 
+
+      li.card {
         background: rgb(115, 71, 212);
-        // overflow: hidden;
         border: 1px solid rgb(255, 255, 255);
-        height: 100px; width: 100px;
+        height: 100px;
+        width: 100px;
         border-radius: 10px;
         position: absolute;
-        
+
         box-shadow: 1px 2px 2px 0 rgb(174, 174, 174);
-        transition: all 0.5s cubic-bezier(.63,.16, .03,1.12);
-        // transition: all 1s cubic-bezier(0,0.05,0,0.5);
+        transition: all 0.5s cubic-bezier(0.63, 0.16, 0.03, 1.12);
         display: flex;
         align-items: center;
         justify-content: center;
-        
+
         left: 0px;
         right: 0px;
         top: 0px;
         bottom: 0px;
-  
-        div.content{
-          // padding: 5px 10px;
-          
-          p{
+
+        div.content {
+          p {
             color: white;
           }
-          
         }
-        
-        &.card-1{ 
-          z-index: 10; transform: rotateZ(-2deg);
+
+        &.card-1 {
+          z-index: 10;
+          transform: rotateZ(-2deg);
         }
-        &.card-2{ 
-          z-index: 9; transform: rotateZ(-7deg);
-          
+        &.card-2 {
+          z-index: 9;
+          transform: rotateZ(-7deg);
         }
-        &.card-3{ 
-          z-index: 8; transform: rotateZ(5deg);
-          
+        &.card-3 {
+          z-index: 8;
+          transform: rotateZ(5deg);
         }
       }
-      
+
       &.transition {
         li.card.active {
-          
           transform: rotateZ(0deg);
-          &.card-1.active{
-            
+          &.card-1.active {
             left: -130px;
             right: 0px;
             top: 125px;
@@ -268,84 +209,83 @@
 
             border-radius: 5px;
 
-            div.content{
-              p{
+            div.content {
+              p {
                 font-size: 13px;
               }
             }
-            
           }
-    
-          &.card-2.active{
+
+          &.card-2.active {
             left: -60px;
             right: 0px;
             top: 125px;
             height: 20px;
             width: 65px;
             border-radius: 5px;
-            
-            div.content{
-              p{
+
+            div.content {
+              p {
                 font-size: 13px;
               }
             }
           }
-    
-          &.card-3.active{
+
+          &.card-3.active {
             left: 10px;
             right: 0px;
             top: 125px;
             height: 20px;
             width: 65px;
             border-radius: 5px;
-            
-            div.content{
-              p{
+
+            div.content {
+              p {
                 font-size: 13px;
               }
             }
           }
-  
-          &.card-4.active{
+
+          &.card-4.active {
             left: 80px;
             right: 0px;
             top: 125px;
             height: 20px;
             width: 65px;
             border-radius: 5px;
-            
-            div.content{
-              p{
+
+            div.content {
+              p {
                 font-size: 13px;
               }
             }
           }
-    
-          &.card-5.active{
+
+          &.card-5.active {
             left: 150px;
             right: 0px;
             top: 125px;
             height: 20px;
             width: 65px;
             border-radius: 5px;
-            
-            div.content{
-              p{
+
+            div.content {
+              p {
                 font-size: 13px;
               }
             }
           }
 
-          &.card-6.active{
+          &.card-6.active {
             left: -2000px;
             right: 0px;
             top: 125px;
             height: 20px;
             width: 65px;
             border-radius: 5px;
-            
-            div.content{
-              p{
+
+            div.content {
+              p {
                 font-size: 13px;
               }
             }
@@ -360,4 +300,3 @@
     font-size: 10px;
   }
 }
-

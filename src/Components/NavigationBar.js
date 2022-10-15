@@ -60,8 +60,8 @@ const NavigationBar = (props) => {
 
         {/* <p onClick={props.openStats}>Stats</p> */}
 
-        {/* <p onClick={resetBtnHandler}>R</p>
-        <p onClick={playagainBtnHandler}>P</p> */}
+        <p onClick={resetBtnHandler}>R</p>
+        <p onClick={playagainBtnHandler}>P</p>
       </div>
     </div>
   );

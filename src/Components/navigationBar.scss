@@ -7,41 +7,31 @@
 
 .nav {
   width: 100%;
-  height: 120px;
-  // background-color: #80808000;
-  // background-image: url("../images/gradients/Radar.jpg");
-  // background-image: linear-gradient(to right, rgb(84, 159, 238),rgb(106, 85, 226), rgb(120, 68, 172));
-  // background-image: linear-gradient();
-  // margin-top: 5px;
-  // margin-bottom: -5px;
-  // margin-left: 1375px;
+  height: 60px;
   background-size: cover;
   font-family: "soul";
   display: flex;
   align-items: center;
+  justify-content: space-between;
   font-size: xx-large;
-  padding: 20px;
   box-sizing: border-box;
+  padding: 0px 1rem;
   h3 {
     color: #000000;
     font-weight: bold;
     align-items: center;
-    position: absolute;
     left: 5%;
   }
 
   .right {
     display: flex;
     align-items: center;
-    position: absolute;
-    right: 5%;
     gap: 30px;
 
     svg {
       cursor: pointer;
       height: 28px;
       width: 28px;
-      // background-color: black;
     }
     .stats {
       cursor: pointer;
@@ -57,9 +47,6 @@
     }
 
     .toggle {
-      // position: absolute;
-      // right: 5%;
-
       --size: 1.3rem;
 
       appearance: none;
@@ -97,45 +84,6 @@
     }
   }
 
-  // layout
-  // body {
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
-  //   justify-content: center;
-  //   min-height: 100vh;
-  // }
-
-  // .background {
-  //   --bg: hsl(240, 100%, 10%);
-  //   background: var(--bg);
-  //   position: fixed;
-  //   height: 100vh;
-  //   width: 100vw;
-  //   transition: background 500ms;
-  // }
-
-  // .toggle {
-  //   z-index: 1;
-  //   &:checked {
-  //     & ~ .background {
-  //       --bg: white;
-  //     }
-  //     & ~ .title {
-  //       --color: hsl(40, 100%, 50%);
-  //     }
-  //   }
-  // }
-
-  // .title {
-  //   --color: hsl(240, 100%, 95%);
-  //   color: var(--color);
-  //   z-index: 1;
-  //   cursor: pointer;
-  //   display: block;
-  //   padding: 0.5rem 0 0;
-  //   transition: color 500ms;
-  // }
   &.dark {
     background-color: #f9333300;
     h3 {
