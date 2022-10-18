@@ -1,42 +1,49 @@
 @import "./global.scss";
 
-.footer {
-  font-family: "dimitri-lite";
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  position: fixed;
-  bottom: 20px;
-}
+.wrapper {
+  height: 100vh;
+  position: relative;
+  padding-bottom: 0px;
 
-// https://www.w3schools.com/css/css_link.asp
-//  For styling
-
-.footer-item {
-  opacity: 70%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  cursor: pointer;
-
-  img {
-    opacity: inherit;
-    height: 20px;
-    width: 20px;
+  .footer {
+    font-family: "dimitri-lite";
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    position: absolute;
+    left: 0px;
+    bottom: 10px;
   }
 
-  a {
-    font-size: 13px;
-    opacity: inherit;
-    color: black;
-    text-decoration: none;
-    font-weight: bold;
-  }
+  // https://www.w3schools.com/css/css_link.asp
+  //  For styling
 
-  &:hover {
-    opacity: 100%;
+  .footer-item {
+    opacity: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    cursor: pointer;
+
+    img {
+      opacity: inherit;
+      height: 20px;
+      width: 20px;
+    }
+
+    a {
+      font-size: 13px;
+      opacity: inherit;
+      color: black;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    &:hover {
+      opacity: 100%;
+    }
   }
 }

@@ -84,6 +84,13 @@ export const dataReducer = (state, action) => {
 
         opened_date: action.opened_date,
         next_date: action.next_date,
+        flip: {
+          0: false,
+          1: true,
+          2: true,
+          3: true,
+          4: true,
+        },
       };
     }
     case "TESTING": {
@@ -95,6 +102,13 @@ export const dataReducer = (state, action) => {
         guesses_left: 5,
         gameWon: false,
         active: 0,
+        flip: {
+          0: false,
+          1: true,
+          2: true,
+          3: true,
+          4: true,
+        },
       };
     }
     case "INVALID_WORD": {
@@ -128,7 +142,6 @@ export const dataReducer = (state, action) => {
         streak: state.streak + 1,
         maxStreak:
           state.maxStreak <= state.streak ? state.streak + 1 : state.maxStreak,
-        
       };
     }
     case "ANSWER_INCORRECT": {

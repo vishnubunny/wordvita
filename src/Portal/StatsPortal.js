@@ -91,7 +91,7 @@ const ModalOverlay = (props) => {
   };
 
   return (
-    <div className={`modal ${!state.Lightmode && "dark"}`}>
+    <div className={`statsmodal ${!state.Lightmode ? "dark" : ""}`}>
       <div className={"header"}>
         <h2>STATISTICS</h2>
         <button onClick={props.closethis1}>X</button>
@@ -104,12 +104,9 @@ const ModalOverlay = (props) => {
               <p>Won : {state.won} </p>
               <p>Win Streak : {state.streak}</p>
               <p>Max win Streak : {state.maxStreak}</p>
+              <p>{props.days} days</p>
             </div>
-            <Doughnut
-              data={data}
-              height={250}
-              options={options}
-            />
+            <Doughnut data={data} height={250} options={options} />
             <p>Next Wordvita in</p>
             <CountDown />
           </>
@@ -149,7 +146,7 @@ const StatsPortal = (props) => {
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <ModalOverlay closethis1={props.closethis} />,
+        <ModalOverlay closethis1={props.closethis} days={props.days} />,
         document.getElementById("overlay-root")
       )}
     </React.Fragment>

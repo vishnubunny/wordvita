@@ -30,6 +30,12 @@ function App() {
   };
 
   //is called in useEffect
+
+  const releaseDate = new Date("10/15/2022");
+  const today = new Date();
+  const diffTime = Math.abs(today - releaseDate);
+  const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+  console.log(days)
   const initial_setup = async (id) => {
     const prod = "https://wordvita.com/index1",
       local = "http://127.0.0.1:5000/index1";
@@ -40,10 +46,6 @@ function App() {
         },
       };
 
-      const releaseDate = new Date("10/15/2022");
-      const today = new Date();
-      const diffTime = Math.abs(today - releaseDate);
-      const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
       // console.log(days);
 
       //Posting days diff to get the guess and clues array
@@ -142,7 +144,9 @@ function App() {
   return (
     <div className={`App ${state?.Lightmode === true ? "" : "dark"}`}>
       {showInfo && <DemoPortal closethis={closeInfoButtonHandler} />}
-      {showStats && <StatsPortal closethis={closeStatsButtonHandler} />}
+      {showStats && (
+        <StatsPortal closethis={closeStatsButtonHandler} days={days} />
+      )}
       <NavigationBar
         openthis={openInfoButtonHandler}
         closethis={closeInfoButtonHandler}
@@ -154,8 +158,8 @@ function App() {
       <div className="cg">
         {response?.data !== "err" || old_data !== null ? (
           <Clues />
-          // <>gello</>
         ) : (
+          // <>gello</>
           <p>No data from server</p>
         )}
         {response?.data !== "err" || old_data !== null ? (

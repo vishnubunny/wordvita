@@ -6,27 +6,29 @@
 // }
 
 .nav {
-  width: 100%;
+  width: 100vw;
   height: 60px;
   background-size: cover;
   font-family: "soul";
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   font-size: xx-large;
-  box-sizing: border-box;
   padding: 0px 1rem;
+  box-sizing: border-box;
+
   h3 {
     color: #000000;
     font-weight: bold;
     align-items: center;
-    left: 5%;
   }
 
   .right {
     display: flex;
     align-items: center;
     gap: 30px;
+    position: absolute;
+    right: 30px;
 
     svg {
       cursor: pointer;
@@ -103,6 +105,8 @@
 
 @media screen and (max-width: 768px) {
   .nav {
+    justify-content: space-between;
+    padding-left: 20px;
     h3 {
       font-size: x-large;
     }
