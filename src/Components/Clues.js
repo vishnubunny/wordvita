@@ -41,13 +41,13 @@ const ClueItem = (props) => {
       <div className="content">
         {state.lost && (
           <p>
-            {props?.number == 0 ? "Game Lost" : state.clues[props?.number - 1]}
+            {props.number == 0 ? `Game Lost` : state.clues[props.number - 1]}
           </p>
         )}
 
         {state.lost === false && (
           <p>
-            {props?.number == 0 ? "Game Won" : state.clues[props?.number - 1]}
+            {props.number == 0 ? "Game Won" : state.clues[props.number - 1]}
           </p>
         )}
       </div>

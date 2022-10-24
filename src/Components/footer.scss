@@ -45,5 +45,12 @@
     &:hover {
       opacity: 100%;
     }
+
+    &.dark{
+      a{
+        color: white;
+      }
+    }
+
   }
 }

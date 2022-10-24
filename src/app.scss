@@ -17,7 +17,6 @@ body {
   background-color: rgb(253, 253, 254);
   transition: all 500ms;
 
-  
   hr {
     margin: 0;
     width: 100vw;
@@ -39,5 +38,25 @@ body {
     }
   }
 
+  .ans-reveal {
+    display: flex;
+    margin: auto;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    p {
+      height: 2rem;
+      width: auto;
+      padding: 0px 15px;
+      background-color: rgb(240, 185, 46);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
 
+      span {
+        font-weight: bold;
+      }
+    }
+  }
 }

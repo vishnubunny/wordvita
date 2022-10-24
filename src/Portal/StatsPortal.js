@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import "./statsPortal.scss";
 import { Doughnut } from "react-chartjs-2";
@@ -15,7 +15,7 @@ const ModalOverlay = (props) => {
 
   const [dateitem, setDateitem] = useState(date.toTimeString().split(" ")[0]);
 
-  const [copyText, setCopyText] = useState("Word Vita" + " " + "days");
+  // const [copyText, setCopyText] = useState();
 
   ChartJS.register(ArcElement, Tooltip, Legend);
   let data = {
@@ -62,24 +62,24 @@ const ModalOverlay = (props) => {
 
   let copyText1;
   const createSharableData = async () => {
-    copyText1 = "Word Vita" + " " + "days";
+    copyText1 = `Word Vita #${props.days}\n`;
     for (let index = 0; index < state.guess_percent.length; index++) {
       copyText1 =
         copyText1 +
         addsEmoji(state.guess_percent[index]) +
         state.guess_percent[index] +
-        "%";
+        "%\n";
     }
-    setCopyText(copyText1);
-    navigator.clipboard.writeText(copyText1);
+    // setCopyText(copyText1);
+    navigator.clipboard.writeText(copyText1 + "https://www.wordvita.com");
 
     await navigator.share({
       title: "Results",
-      text: copyText,
-      url: "www.google.com",
+      text: copyText1,
+      url: "",
     });
 
-    setCopyText("");
+    // setCopyText("");
   };
 
   const shareBtnHandler = () => {
@@ -91,10 +91,14 @@ const ModalOverlay = (props) => {
   };
 
   return (
-    <div className={`statsmodal ${!state.Lightmode ? "dark" : ""}`}>
+    <div
+      className={`statsmodal ${!state.Lightmode ? "dark" : ""} ${
+        props.val ? "open" : "close"
+      }`}
+    >
       <div className={"header"}>
         <h2>STATISTICS</h2>
-        <button onClick={props.closethis1}>X</button>
+        <button onClick={props.closethis1}>x</button>
       </div>
       <div className={"content"}>
         {state.played !== 0 ? (
@@ -139,14 +143,22 @@ const ModalOverlay = (props) => {
 };
 
 const StatsPortal = (props) => {
+  const [val, setVal] = useState(props.status);
+  const closeHandler = () => {
+    setVal(false);
+    setTimeout(() => {
+      props.closethis();
+    }, 800);
+  };
+  useEffect(() => {}, [val]);
   return (
     <React.Fragment>
       {ReactDOM.createPortal(
-        <Backdrop closethis1={props.closethis} />,
+        <Backdrop closethis1={closeHandler} />,
         document.getElementById("backdrop-root")
       )}
       {ReactDOM.createPortal(
-        <ModalOverlay closethis1={props.closethis} days={props.days} />,
+        <ModalOverlay closethis1={closeHandler} days={props.days} val={val} />,
         document.getElementById("overlay-root")
       )}
     </React.Fragment>

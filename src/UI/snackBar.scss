@@ -9,7 +9,7 @@
   position: fixed; /* Sit on top of the screen */
   z-index: 50; /* Add a z-index if needed */
   left: 50%; /* Center the snackbar */
-  top: 30px; /* 30px from the bottom */
+  top: 9%; /* 30px from the bottom */
 
   &.dark{
     background-color: rgb(255, 255, 255); /* Black background color */
@@ -34,8 +34,8 @@
     visibility: visible; /* Show the snackbar */
     /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
     However, delay the fade out process for 2.5 seconds */
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
-    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    -webkit-animation: fadeinSnack 0.5s, fadeoutSnack 0.5s 2.5s;
+    animation: fadeinSnack 0.5s, fadeoutSnack 0.5s 2.5s;
   }
 
   &.hide {
@@ -44,31 +44,31 @@
 }
 
 /* Animations to fade the snackbar in and out */
-@-webkit-keyframes fadein {
+@-webkit-keyframes fadeinSnack {
   from {
     top: 0;
     opacity: 0;
   }
   to {
-    top: 30px;
+    top: 9%;
     opacity: 1;
   }
 }
 
-@keyframes fadein {
+@keyframes fadeinSnack {
   from {
     top: 0;
     opacity: 0;
   }
   to {
-    top: 30px;
+    top: 9%;
     opacity: 1;
   }
 }
 
-@-webkit-keyframes fadeout {
+@-webkit-keyframes fadeoutSnack {
   from {
-    top: 30px;
+    top: 9%;
     opacity: 1;
   }
   to {
@@ -77,9 +77,9 @@
   }
 }
 
-@keyframes fadeout {
+@keyframes fadeoutSnack {
   from {
-    top: 30px;
+    top: 9%;
     opacity: 1;
   }
   to {

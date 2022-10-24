@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./footer.scss";
 
 import twitter from "../images/twitter.svg";
-import facebook from "../images/facebook.svg";
-import google from "../images/google.svg";
 import mail from "../images/mail.svg";
+import { DataContext } from "../ContextAPI/dataContext";
 
 const items = [
   { name: "Twitter", url: "https://twitter.com/wordvita", image: twitter },
@@ -20,7 +19,7 @@ const items = [
 const Footer = () => {
   return (
     <div className="wrapper">
-      <div className="footer">
+      <div className={`footer `}>
         {items.map((item, i) => {
           return <FooterItem details={item} key={i} />;
         })}
@@ -30,8 +29,10 @@ const Footer = () => {
 };
 
 const FooterItem = ({ details }) => {
+  const { state, dispatch } = useContext(DataContext);
+
   return (
-    <div className="footer-item">
+    <div className={`footer-item ${!state.Lightmode ? "dark" : ""}`}>
       <img src={details.image} />
       <a href={details.url} target="_blank">
         {details.name}

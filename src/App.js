@@ -31,11 +31,11 @@ function App() {
 
   //is called in useEffect
 
-  const releaseDate = new Date("10/15/2022");
+  const releaseDate = new Date("10/20/2022");
   const today = new Date();
   const diffTime = Math.abs(today - releaseDate);
   const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-  console.log(days)
+  console.log(days);
   const initial_setup = async (id) => {
     const prod = "https://wordvita.com/index1",
       local = "http://127.0.0.1:5000/index1";
@@ -143,9 +143,15 @@ function App() {
 
   return (
     <div className={`App ${state?.Lightmode === true ? "" : "dark"}`}>
-      {showInfo && <DemoPortal closethis={closeInfoButtonHandler} />}
+      {showInfo && (
+        <DemoPortal closethis={closeInfoButtonHandler} status={showInfo} />
+      )}
       {showStats && (
-        <StatsPortal closethis={closeStatsButtonHandler} days={days} />
+        <StatsPortal
+          closethis={closeStatsButtonHandler}
+          days={days}
+          status={showStats}
+        />
       )}
       <NavigationBar
         openthis={openInfoButtonHandler}
@@ -166,6 +172,12 @@ function App() {
           <Guess />
         ) : (
           <p>So not loading guesses and clues to play!</p>
+        )}
+
+        {state.lost && (
+          <div className="ans-reveal">
+            <p>Answer is {state.ans[0]}</p>
+          </div>
         )}
       </div>
       <Footer />

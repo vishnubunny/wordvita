@@ -10,12 +10,21 @@
 
 .statsmodal {
   position: fixed;
-  top: 5%;
+  top: 8%;
   left: 30%;
   width: 40%;
   z-index: 100;
   overflow: hidden;
   border-radius: 10px;
+
+  &.open {
+    -webkit-animation: fadein 1s;
+    animation: fadein 1s;
+  }
+  &.close {
+    -webkit-animation: fadeout 1s;
+    animation: fadeout 1s;
+  }
 
   .header {
     width: 100%;
@@ -119,8 +128,53 @@
 }
 
 @media screen and (max-width: 720px) {
-  .modal {
+  .statsmodal {
     width: 80%;
     left: 10%;
+  }
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+  to {
+    top: 8%;
+    opacity: 1;
+  }
+}
+
+@keyframes fadein {
+  from {
+    top: 0;
+    opacity: 0;
+  }
+  to {
+    top: 8%;
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes fadeout {
+  from {
+    top: 8%;
+    opacity: 1;
+  }
+  to {
+    top: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    top: 8%;
+    opacity: 1;
+  }
+  to {
+    top: 0;
+    opacity: 0;
   }
 }

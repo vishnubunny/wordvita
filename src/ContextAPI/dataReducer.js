@@ -76,7 +76,7 @@ export const dataReducer = (state, action) => {
 
         guesses: [],
         guess_percent: [],
-        guesses_left: 6,
+        guesses_left: 5,
         error: 0,
         valid: [],
         active: 0,
